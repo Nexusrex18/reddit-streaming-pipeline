@@ -1,0 +1,19 @@
+# secrets and local env
+secrets/
+.env
+
+# large data files
+data/*.sqlite
+data/*.csv
+data/*.jsonl
+data/*.bz2
+data/*.tar.gz
+data/*.zip
+
+# caches and build
+.ivy/
+__pycache__/
+*.pyc
+
+# debugging log files
+*.log
