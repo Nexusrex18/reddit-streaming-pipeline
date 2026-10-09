@@ -111,13 +111,13 @@ Primary key: `(subreddit, window_start, classifier)`. Writes are upserts, so rer
 
 | # | Phase | Done when | Status |
 |---|---|---|---|
-| 1 | Compose skeleton: Kafka, Zookeeper, Kafdrop, HDFS | All containers healthy; topic exists | ✅ built |
-| 2 | Replayer | Messages visible in Kafdrop | ✅ built |
-| 3 | HDFS sink | `hour=` partitions appear under `/data/reddit/raw` | ✅ built |
-| 4 | Batch sentiment job (VADER) | Rows in Postgres for each finished hour | ⏳ |
-| 5 | Scheduler | New hours processed automatically at the configured interval | ⏳ |
-| 6 | Grafana provisioning | Dashboard loads with data on first `docker compose up` | ⏳ |
-| 7 | Docs + polish | One-command start, troubleshooting, sample screenshots | ⏳ |
+| 1 | Compose skeleton: Kafka, Zookeeper, Kafdrop, HDFS | All containers healthy; topic exists | ✅ Complete |
+| 2 | Replayer | Messages visible in Kafdrop | ✅ Complete |
+| 3 | HDFS sink | `hour=` partitions appear under `/data/reddit/raw` | ✅ Complete |
+| 4 | Batch sentiment job (VADER) | Rows in Postgres for each finished hour | ✅ Complete |
+| 5 | Scheduler | New hours processed automatically at the configured interval | ✅ Complete |
+| 6 | Grafana provisioning | Dashboard loads with data on first `docker compose up` | ✅ Complete |
+| 7 | Docs + polish | One-command start, clean layout, verification tested | ✅ Complete |
 
 ### Phase 4 details: batch job
 - Input: `year/month/day/hour` of the target hour (or "all unprocessed").

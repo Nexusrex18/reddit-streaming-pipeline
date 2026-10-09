@@ -75,12 +75,16 @@ def rows_sqlite():
 
 
 def rows_csv():
+    if not os.path.exists(PATH):
+        sys.exit(f"[replayer] {PATH} not found. Check DATA_PATH in .env")
     csv.field_size_limit(sys.maxsize)
     with open(PATH, newline="", encoding="utf-8") as f:
         yield from csv.DictReader(f)
 
 
 def rows_jsonl():
+    if not os.path.exists(PATH):
+        sys.exit(f"[replayer] {PATH} not found. Check DATA_PATH in .env")
     with open(PATH, encoding="utf-8") as f:
         for line in f:
             line = line.strip()

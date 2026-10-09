@@ -116,6 +116,52 @@ services:
       - ./data:/data:ro
     restart: "no"
 
+  # ---------------- Database, Batch Scheduler & Visualization ----------------
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-reddit_sentiment}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./services/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-reddit_sentiment}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  scheduler:
+    build: ./services/spark
+    <<: *common-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      hdfs-sink:
+        condition: service_started
+    restart: unless-stopped
+    command: ["python3", "-u", "/app/scheduler.py"]
+
+  grafana:
+    image: grafana/grafana:10.4.2
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/provisioning/dashboards/sentiment_dashboard.json
+    volumes:
+      - ./services/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./services/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+
 volumes:
   namenode_data:
   datanode_data:
+  postgres_data:

@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    uid: PostgreSQL
+    access: proxy
+    url: postgres:5432
+    user: postgres
+    secureJsonData:
+      password: postgres
+    jsonData:
+      database: reddit_sentiment
+      sslmode: disable
+      postgresVersion: 1500
+    isDefault: true
+    editable: false
