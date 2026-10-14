@@ -139,7 +139,7 @@
           "mode": "single",
           "sort": "none"
         },
-        "xField": "time",
+        "xField": "hour",
         "xTickLabelRotation": 0
       },
       "pluginVersion": "10.4.2",
@@ -152,7 +152,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\n  TO_CHAR(window_start, 'YYYY-MM-DD HH24:MI') AS \"time\",\n  pct_pos AS \"% Positive\",\n  pct_neu AS \"% Neutral\",\n  pct_neg AS \"% Negative\"\nFROM subreddit_sentiment_hourly\nWHERE subreddit = '$subreddit'\nORDER BY window_start ASC;",
+          "rawSql": "SELECT\n  TO_CHAR(window_start, 'YYYY-MM-DD HH24:MI') AS \"hour\",\n  pct_pos AS \"% Positive\",\n  pct_neu AS \"% Neutral\",\n  pct_neg AS \"% Negative\"\nFROM subreddit_sentiment_hourly\nWHERE subreddit = '$subreddit'\nORDER BY window_start ASC;",
           "refId": "A"
         }
       ],
@@ -456,7 +456,7 @@
           "mode": "single",
           "sort": "none"
         },
-        "xField": "time",
+        "xField": "hour",
         "xTickLabelRotation": 0
       },
       "pluginVersion": "10.4.2",
@@ -469,7 +469,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\n  TO_CHAR(window_start, 'YYYY-MM-DD HH24:MI') AS \"time\",\n  total AS \"Total Comments\"\nFROM subreddit_sentiment_hourly\nWHERE subreddit = '$subreddit'\nORDER BY window_start ASC;",
+          "rawSql": "SELECT\n  TO_CHAR(window_start, 'YYYY-MM-DD HH24:MI') AS \"hour\",\n  total AS \"Total Comments\"\nFROM subreddit_sentiment_hourly\nWHERE subreddit = '$subreddit'\nORDER BY window_start ASC;",
           "refId": "A"
         }
       ],
